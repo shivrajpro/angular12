@@ -8,7 +8,7 @@
           [toggleAllCheckboxTooltipMessage]="tooltipMessage"
           [toogleAllCheckboxTooltipPosition]="'above'"
           placeholderLabel="Search"
-          >
+        >
         </ngx-mat-select-search>
       </mat-option>
       <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
@@ -17,3 +17,8 @@
     </mat-select>
   </mat-form-field>
 </p>
+<ul>
+  <li *ngFor="let b of bankMultiCtrl?.value" >
+    {{b.name}}
+  </li>
+</ul>

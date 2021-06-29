@@ -10,19 +10,27 @@
               msInfiniteScroll
               (infiniteScroll)="getNextBatch()"
               [formControl]="bankCtrl"
-              placeholder="Select Something">
+              [multiple]="true"
+              placeholder="Banks">
     <mat-option>
       <!--disableScrollToActiveOnOptionsChanged should be set to true-->
       <ngx-mat-select-search
         [formControl]="searchCtrl"
-        placeholderLabel="search"
+        placeholderLabel="Search"
         [disableScrollToActiveOnOptionsChanged]="true"
         noEntriesFoundLabel="No entry matches">
       </ngx-mat-select-search>
     </mat-option>
     <mat-option *ngFor="let bank of filteredBatchedData$ | async"
-                [value]="bank.id">
+                [value]="bank">
       {{bank.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
+<div>
+  <ul>
+    <li *ngFor="let b of bankCtrl?.value">
+      {{b.name}}
+    </li>
+  </ul>
+</div>
