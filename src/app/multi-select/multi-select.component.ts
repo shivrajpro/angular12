@@ -37,7 +37,7 @@ export class MultiSelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     // set initial selection
-    this.bankMultiCtrl.setValue([this.banks[10], this.banks[11], this.banks[12]]);
+    // this.bankMultiCtrl.setValue([this.banks[10], this.banks[11], this.banks[12]]);
 
     // load the initial bank list
     this.filteredBanksMulti.next(this.banks.slice());

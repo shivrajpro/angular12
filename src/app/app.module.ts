@@ -10,11 +10,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectInfiniteScrollModule } from 'ng-mat-select-infinite-scroll';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { InfiniteScrollExampleComponent } from './multi-select/infinite-scroll-example/infinite-scroll-example.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MultiSelectComponent
+    MultiSelectComponent,
+    InfiniteScrollExampleComponent
   ],
   imports: [
     BrowserModule,
