@@ -1,8 +1,13 @@
 
 <div class="flex-container">
     <div class="multi-select">
-        <app-multi-select></app-multi-select>
+        <app-multi-select [selectedValues]="defaultValue" (selectionChange)="selectionChanged($event)"></app-multi-select>
 
+        <ul>
+            <li *ngFor="let b of selectedBanks">
+                {{b.name}}
+            </li>
+        </ul>
         <div class="inifinite-scroll">
             <app-infinite-scroll-example></app-infinite-scroll-example>
         </div>

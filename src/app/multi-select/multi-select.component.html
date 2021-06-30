@@ -1,7 +1,7 @@
 <!-- <h3>Tooltip on the Select All Checkbox</h3> -->
 <p>
   <mat-form-field color="primary">
-    <mat-select [formControl]="bankMultiCtrl" placeholder="Banks" [multiple]="true" #multiSelect>
+    <mat-select [ngModel]="selectedValues" (ngModelChange)="selectionChange.emit($event)" placeholder="Banks" [multiple]="true" #multiSelect>
       <mat-option>
         <ngx-mat-select-search [showToggleAllCheckbox]="true" (toggleAll)="toggleSelectAll($event)"
           [formControl]="bankMultiFilterCtrl" 
@@ -17,8 +17,3 @@
     </mat-select>
   </mat-form-field>
 </p>
-<ul>
-  <li *ngFor="let b of bankMultiCtrl?.value" >
-    {{b.name}}
-  </li>
-</ul>

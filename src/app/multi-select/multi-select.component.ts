@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
@@ -12,6 +12,10 @@ import { Bank, BANKS } from '../data/demo-data';
   styleUrls: ['./multi-select.component.scss']
 })
 export class MultiSelectComponent implements OnInit, AfterViewInit, OnDestroy {
+  // 2. selectedValues should be bound to whatever is selected
+  @Input() selectedValues: Bank[] = [];
+  // 3. output whenever a change is made to selectedValues
+  @Output() selectionChange = new EventEmitter();
 
   /** list of banks */
   protected banks: Bank[] = BANKS;
@@ -64,9 +68,12 @@ export class MultiSelectComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(val => {
         if (selectAllValue) {
           this.bankMultiCtrl.patchValue(val);
+          this.selectedValues = this.banks.slice();
         } else {
           this.bankMultiCtrl.patchValue([]);
+          this.selectedValues = [];
         }
+        this.selectionChange.emit(this.selectedValues);
       });
   }
 
