@@ -111,4 +111,7 @@ export class MultiSelectComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  getTooltip(){
+    return "";
+  }
 }
