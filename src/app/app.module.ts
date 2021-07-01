@@ -12,12 +12,15 @@ import { MatSelectInfiniteScrollModule } from 'ng-mat-select-infinite-scroll';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InfiniteScrollExampleComponent } from './multi-select/infinite-scroll-example/infinite-scroll-example.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CuppaLabsComponent } from './cuppa-labs/cuppa-labs.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 @NgModule({
   declarations: [
     AppComponent,
     MultiSelectComponent,
-    InfiniteScrollExampleComponent
+    InfiniteScrollExampleComponent,
+    CuppaLabsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     NgxMatSelectSearchModule,
     MatSelectInfiniteScrollModule,
-    MatTooltipModule
+    MatTooltipModule,
+    AngularMultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
