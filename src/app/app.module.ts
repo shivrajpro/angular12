@@ -14,13 +14,17 @@ import { InfiniteScrollExampleComponent } from './multi-select/infinite-scroll-e
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CuppaLabsComponent } from './cuppa-labs/cuppa-labs.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { CustomFilterComponent } from './custom-filter/custom-filter.component';
+import { EmpirixComponent } from './empirix/empirix.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MultiSelectComponent,
     InfiniteScrollExampleComponent,
-    CuppaLabsComponent
+    CuppaLabsComponent,
+    CustomFilterComponent,
+    EmpirixComponent
   ],
   imports: [
     BrowserModule,

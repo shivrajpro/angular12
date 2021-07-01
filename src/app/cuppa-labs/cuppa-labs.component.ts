@@ -33,7 +33,7 @@ export class CuppaLabsComponent implements OnInit {
       { "id": 5, "itemName": "South Korea" }
     ];
     this.dropdownSettings = {
-      singleSelection: true,
+      singleSelection: false,
       text: "Select Countries",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
