@@ -16,13 +16,13 @@ export class EmpirixComponent implements OnInit {
   numOfProps: number[] = [];
 
   // for dimensions
-  dimensionGroupsTracker: any = {};
+  dimensionGroupsTracker: any[] = [];
   itemList: any[] = [];
   settings: any = {};
   selectedItems: any[] = [];
 
   // for dimension property values
-  propValuesTracker:any = {};
+  propValuesTracker:any[] = [];
   propertiesList: any[] = [];
   propertiesSettings: any = {};
   selectedPropertVals: any[] = [];
@@ -2651,8 +2651,8 @@ export class EmpirixComponent implements OnInit {
     // for dimension property values
     this.propertiesList = [
       {
-        id:"CommonMessages",
-        itemName:"CommonMessages"
+        id:"Cx/Dx",
+        itemName:"Cx/Dx"
       },      
       {
         id:"Gn",
@@ -2694,22 +2694,32 @@ export class EmpirixComponent implements OnInit {
     //   }
     // }
     
-    this.dimensionGroupsTracker[this.numOfProps.length] = {
+    const newDimObj = {
       itemsList:this.itemList,
       selectedItems:[],
-    }
+    };
 
-    this.propValuesTracker[this.numOfProps.length] = {
+    this.dimensionGroupsTracker.push(newDimObj);
+
+    const newPropObj = {
       propertiesList: this.propertiesList,
       selectedPropertVals: []
-    }
-    this.numOfProps.push(this.numOfProps.length);
+    };
 
+    this.propValuesTracker.push(newPropObj);
+
+    this.numOfProps.push(this.numOfProps.length);
 
     console.log('>> dimensionGroupsTracker',this.dimensionGroupsTracker);
     console.log('>> propValuesTracker',this.propValuesTracker);
     
     
+  }
+
+  onDeleteClick(index:number){
+    // delete group at index
+    console.log('>> index',index);
+    this.numOfProps = this.numOfProps.filter((_,i)=>i!==index);
   }
 
   onItemSelect(item: any) {
