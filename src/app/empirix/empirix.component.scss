@@ -1,0 +1,16 @@
+.custom-filter{
+    display: flex;
+    margin: 20px;
+    width: 400px;
+
+    div{
+        margin: 0px 10px;
+    }
+    .dimension-select{
+        width: 50%;
+    }
+    
+    .property-values-select{
+        width: 50%;
+    }
+}

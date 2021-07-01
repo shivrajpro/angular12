@@ -2619,23 +2619,17 @@ export class EmpirixComponent implements OnInit {
       this.itemList[key] = {
         ...this.itemList[key],
         id: this.itemList[key].item,
-        itemName: this.itemList[key].item.split(".")[1]
+        itemName: this.itemList[key].groupName +" - "+ this.itemList[key].item.split(".")[1]
       }
     }
 
     console.log('>> itemsList', this.itemList);
 
     this.settings = {
-      singleSelection: false,
-      text: "Select Dimensions",
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      singleSelection: true,
+      text: "Select Dimension",
       searchPlaceholderText: 'Search Fields',
       enableSearchFilter: true,
-      badgeShowLimit: 5,
-      groupBy: "groupName",
-      limitSelection: 1,
-      selecteGroup:false
   };
   
   }

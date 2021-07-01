@@ -1,9 +1,23 @@
 <p>empirix works!</p>
-<angular2-multiselect [data]="itemList" 
-                      [(ngModel)]="selectedItems" 
-                      [settings]="settings" 
-                      (onSelect)="onItemSelect($event)"
-                      (onDeSelect)="OnItemDeSelect($event)" 
-                      (onSelectAll)="onSelectAll($event)" 
-                      (onDeSelectAll)="onDeSelectAll($event)">
-</angular2-multiselect>
+<div class="custom-filter">
+    <div class="dimension-select">
+        <angular2-multiselect [data]="itemList" 
+                              [(ngModel)]="selectedItems" 
+                              [settings]="settings" 
+                              (onSelect)="onItemSelect($event)"
+                              (onDeSelect)="OnItemDeSelect($event)" 
+                              (onSelectAll)="onSelectAll($event)" 
+                              (onDeSelectAll)="onDeSelectAll($event)">
+        </angular2-multiselect>
+    </div>
+    <div class="property-values-select">
+        <angular2-multiselect [data]="itemList" 
+                              [(ngModel)]="selectedItems" 
+                              [settings]="settings" 
+                              (onSelect)="onItemSelect($event)"
+                              (onDeSelect)="OnItemDeSelect($event)" 
+                              (onSelectAll)="onSelectAll($event)" 
+                              (onDeSelectAll)="onDeSelectAll($event)">
+        </angular2-multiselect>
+    </div>
+</div>
