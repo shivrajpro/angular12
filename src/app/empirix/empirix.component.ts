@@ -11,6 +11,13 @@ export class EmpirixComponent implements OnInit {
   customFilterItem: any = {};
   selectedCustomProps: any = {};
   mdmDataList: any[] = [];
+
+
+  // 
+  itemList: any[] = [];
+  settings: any = {};
+  selectedItems: any[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -2595,11 +2602,60 @@ export class EmpirixComponent implements OnInit {
       ]
     ];
 
-    console.log('>> this.customFilterGroups',this.customFilterGroups);
-    console.log('>> this.customFilterItem',this.customFilterItem);
-    console.log('>> this.selectedCustomProps',this.selectedCustomProps);
-    console.log('>> this.mdmDataList',this.mdmDataList);
-    
+    // console.log('>> this.customFilterGroups',this.customFilterGroups);
+    // console.log('>> this.customFilterItem',this.customFilterItem);
+    // console.log('>> this.selectedCustomProps',this.selectedCustomProps);
+    // console.log('>> this.mdmDataList',this.mdmDataList);
+
+    for (const dim in this.customFilterItem) {
+      if (Array.isArray(this.customFilterItem[dim])) {
+        // console.log('>> ',this.customFilterItem[dim]);
+        this.itemList.push(...this.customFilterItem[dim]);
+      }
+    }
+
+
+    for (const key in this.itemList) {
+      this.itemList[key] = {
+        ...this.itemList[key],
+        id: this.itemList[key].item,
+        itemName: this.itemList[key].item.split(".")[1]
+      }
+    }
+
+    console.log('>> itemsList', this.itemList);
+
+    this.settings = {
+      singleSelection: false,
+      text: "Select Dimensions",
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      searchPlaceholderText: 'Search Fields',
+      enableSearchFilter: true,
+      badgeShowLimit: 5,
+      groupBy: "groupName",
+      limitSelection: 1,
+      selecteGroup:false
+  };
+  
+  }
+
+  onItemSelect(item: any) {
+    console.log('>> onItemSelect', item);
+    console.log('>> onItemSelect', this.selectedItems);
+  }
+
+  OnItemDeSelect(item: any) {
+    console.log('>> onItemDeSelect', item);
+    console.log('>> onItemDeSelect', this.selectedItems);
+  }
+
+  onSelectAll(items: any) {
+    console.log('>> onSelectAll', items);
+  }
+
+  onDeSelectAll(items: any) {
+    console.log('>> onDeSelectAll', items);
   }
 
 }
