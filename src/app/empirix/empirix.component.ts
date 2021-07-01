@@ -12,15 +12,31 @@ export class EmpirixComponent implements OnInit {
   selectedCustomProps: any = {};
   mdmDataList: any[] = [];
 
+  // for number of properties
+  numOfProps: number[] = [];
 
-  // 
+  // for dimensions
+  dimensionGroupsTracker: any = {};
   itemList: any[] = [];
   settings: any = {};
   selectedItems: any[] = [];
 
+  // for dimension property values
+  propValuesTracker:any = {};
+  propertiesList: any[] = [];
+  propertiesSettings: any = {};
+  selectedPropertVals: any[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
+    //
+    this.numOfProps = Array(0).fill(0).map((e, i)=>{
+      return i;
+    });
+    console.log('>> this.numOfProps',this.numOfProps);
+    
+    // for dimensions
     this.customFilterGroups = [
       {
         "Cause": [
@@ -2619,19 +2635,81 @@ export class EmpirixComponent implements OnInit {
       this.itemList[key] = {
         ...this.itemList[key],
         id: this.itemList[key].item,
-        itemName: this.itemList[key].groupName +" - "+ this.itemList[key].item.split(".")[1]
+        itemName: this.itemList[key].groupName + " - " + this.itemList[key].item.split(".")[1]
       }
     }
 
-    console.log('>> itemsList', this.itemList);
+    // console.log('>> itemsList', this.itemList);
 
     this.settings = {
       singleSelection: true,
       text: "Select Dimension",
       searchPlaceholderText: 'Search Fields',
       enableSearchFilter: true,
-  };
-  
+    };
+
+    // for dimension property values
+    this.propertiesList = [
+      {
+        id:"CommonMessages",
+        itemName:"CommonMessages"
+      },      
+      {
+        id:"Gn",
+        itemName:"Gn"
+      },
+      {
+        id:"Rx",
+        itemName:"Rx"
+      },
+      {
+        id:"GnGp",
+        itemName:"GnGp"
+      },
+      {
+        id:"S11",
+        itemName:"S11"
+      }
+    ];
+
+    this.propertiesSettings = {
+      singleSelection: false,
+      text: "Select Values",
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      enableSearchFilter: true,
+      badgeShowLimit: 1
+    };
+
+    // this.onAddClick();
+  }
+
+  onAddClick(){
+    // add new group
+    // for (const key in this.itemList) {
+    //   this.itemList[key] = {
+    //     ...this.itemList[key],
+    //     id: this.itemList[key].item,
+    //     itemName: this.itemList[key].groupName + " - " + this.itemList[key].item.split(".")[1]
+    //   }
+    // }
+    
+    this.dimensionGroupsTracker[this.numOfProps.length] = {
+      itemsList:this.itemList,
+      selectedItems:[],
+    }
+
+    this.propValuesTracker[this.numOfProps.length] = {
+      propertiesList: this.propertiesList,
+      selectedPropertVals: []
+    }
+    this.numOfProps.push(this.numOfProps.length);
+
+
+    console.log('>> dimensionGroupsTracker',this.dimensionGroupsTracker);
+    console.log('>> propValuesTracker',this.propValuesTracker);
+    
+    
   }
 
   onItemSelect(item: any) {
@@ -2639,9 +2717,19 @@ export class EmpirixComponent implements OnInit {
     console.log('>> onItemSelect', this.selectedItems);
   }
 
+  onPropSelect(item: any) {
+    console.log('>> onPropSelect', item);
+    console.log('>> onPropSelect', this.selectedPropertVals);
+  }
+
   OnItemDeSelect(item: any) {
     console.log('>> onItemDeSelect', item);
     console.log('>> onItemDeSelect', this.selectedItems);
+  }
+  
+  OnPropDeSelect(item: any) {
+    console.log('>> OnPropDeSelect', item);
+    console.log('>> OnPropDeSelect', this.selectedPropertVals);
   }
 
   onSelectAll(items: any) {
@@ -2652,4 +2740,8 @@ export class EmpirixComponent implements OnInit {
     console.log('>> onDeSelectAll', items);
   }
 
+  getDimensionPropVals(){
+    console.log('>> getDimensionPropVals',this.selectedItems);
+    
+  }
 }

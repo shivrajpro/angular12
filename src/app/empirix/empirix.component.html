@@ -1,23 +1,37 @@
 <p>empirix works!</p>
-<div class="custom-filter">
-    <div class="dimension-select">
-        <angular2-multiselect [data]="itemList" 
-                              [(ngModel)]="selectedItems" 
-                              [settings]="settings" 
-                              (onSelect)="onItemSelect($event)"
-                              (onDeSelect)="OnItemDeSelect($event)" 
-                              (onSelectAll)="onSelectAll($event)" 
-                              (onDeSelectAll)="onDeSelectAll($event)">
-        </angular2-multiselect>
+
+
+<div class="custom-filter-container">
+    <div class="filters-top">
+        <span class="label">Filters</span>
+        <mat-icon (click)="onAddClick()" >add</mat-icon>
     </div>
-    <div class="property-values-select">
-        <angular2-multiselect [data]="itemList" 
-                              [(ngModel)]="selectedItems" 
-                              [settings]="settings" 
-                              (onSelect)="onItemSelect($event)"
-                              (onDeSelect)="OnItemDeSelect($event)" 
-                              (onSelectAll)="onSelectAll($event)" 
-                              (onDeSelectAll)="onDeSelectAll($event)">
-        </angular2-multiselect>
+    <div class="custom-filter" *ngFor="let n of numOfProps" >
+        <!-- json{{dimensionGroupsTracker[n].itemList | json}} -->
+        <div class="dimension-select">
+            <angular2-multiselect [data]="dimensionGroupsTracker[n].itemsList" 
+                                  [(ngModel)]="dimensionGroupsTracker[n].selectedItems" 
+                                  [settings]="settings" 
+                                  (onSelect)="onItemSelect($event)"
+                                  (onDeSelect)="OnItemDeSelect($event)" 
+            >
+            </angular2-multiselect>
+        </div>
+        <div class="property-values-select"
+        (click)="getDimensionPropVals()"
+        >
+            <angular2-multiselect [data]="propValuesTracker[n].propertiesList" 
+                                  [(ngModel)]="propValuesTracker[n].selectedPropertVals" 
+                                  [settings]="propertiesSettings" 
+                                  (onSelect)="onPropSelect($event)"
+                                  (onDeSelect)="OnPropDeSelect($event)" 
+                                  (onSelectAll)="onSelectAll($event)" 
+                                  (onDeSelectAll)="onDeSelectAll($event)"
+            >
+            </angular2-multiselect>
+        </div>
+        <div class="delete-btn" >
+            <button mat-flat-button><mat-icon>delete</mat-icon></button>
+        </div>
     </div>
 </div>

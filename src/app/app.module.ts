@@ -16,6 +16,8 @@ import { CuppaLabsComponent } from './cuppa-labs/cuppa-labs.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { CustomFilterComponent } from './custom-filter/custom-filter.component';
 import { EmpirixComponent } from './empirix/empirix.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { EmpirixComponent } from './empirix/empirix.component';
     NgxMatSelectSearchModule,
     MatSelectInfiniteScrollModule,
     MatTooltipModule,
-    AngularMultiSelectModule
+    AngularMultiSelectModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
