@@ -18,6 +18,7 @@ import { CustomFilterComponent } from './custom-filter/custom-filter.component';
 import { EmpirixComponent } from './empirix/empirix.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { DorComponent } from './dor/dor.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
     InfiniteScrollExampleComponent,
     CuppaLabsComponent,
     CustomFilterComponent,
-    EmpirixComponent
+    EmpirixComponent,
+    DorComponent
   ],
   imports: [
     BrowserModule,
