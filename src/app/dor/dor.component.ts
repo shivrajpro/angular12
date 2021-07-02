@@ -11,6 +11,9 @@ import { Bank, BANKS, BankGroup, BANKGROUPS } from '../data/demo-data';
   styleUrls: ['./dor.component.scss']
 })
 export class DorComponent implements OnInit {
+  // 1. number of groups
+  numOfGroups: number[] = [];
+
   // props for multi select dropdown
   // 2. selectedValues should be bound to whatever is selected
   @Input() selectedValues: Bank[] = [];
@@ -73,7 +76,9 @@ export class DorComponent implements OnInit {
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterBankGroups();
-      });      
+      }); 
+      
+    this.onAddClick();
   }
 
   ngAfterViewInit() {
@@ -83,6 +88,14 @@ export class DorComponent implements OnInit {
   ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();
+  }
+
+  onAddClick(){
+    this.numOfGroups.push(this.numOfGroups.length);
+  }
+
+  onDeleteClick(index:number){
+    this.numOfGroups = this.numOfGroups.filter(i=>i!==index);
   }
 
   toggleSelectAll(selectAllValue: boolean) {

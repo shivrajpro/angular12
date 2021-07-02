@@ -1,7 +1,28 @@
-<div class="multi-select">
-    <h3>Multi Select</h3>
-    <p>
-        <mat-form-field color="primary" [matTooltip]="getTooltip()">
+<h1>DOR Works!</h1>
+<div class="custom-filter-container">
+  <div class="top">
+    <div class="label">Filters</div>
+    <div (click)="onAddClick()" ><mat-icon>add</mat-icon></div>
+  </div>
+  <div class="group" *ngFor="let n of numOfGroups" >
+    <div class="single-select">
+      <!-- <h3>Single selection with option groups</h3> -->
+      <mat-form-field floatLabel="never">
+        <mat-select [formControl]="bankGroupsCtrl" placeholder="Bank" #singleSelect>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="bankGroupsFilterCtrl"></ngx-mat-select-search>
+          </mat-option>
+          <mat-optgroup *ngFor="let group of filteredBankGroups | async" [label]="group.name">
+            <mat-option *ngFor="let bank of group.banks" [value]="bank">
+              {{bank.name}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="multi-select">
+        <!-- <h3>Multi Select</h3> -->
+        <mat-form-field floatLabel="never" color="primary" [matTooltip]="getTooltip()">
             <mat-select [ngModel]="selectedValues" (ngModelChange)="selectionChange.emit($event)" placeholder="Banks"
                 [multiple]="true" #multiSelect>
                 <mat-option>
@@ -15,26 +36,10 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-    </p>
-</div>
+    </div>
+    <div class="delete-btn" (click)="onDeleteClick(n)" >
+      <mat-icon>delete</mat-icon>
+    </div>
 
-<div class="single-select">
-    <h3>Single selection with option groups</h3>
-    <p>
-      <mat-form-field>
-        <mat-select [formControl]="bankGroupsCtrl" placeholder="Bank" #singleSelect>
-          <mat-option>
-            <ngx-mat-select-search [formControl]="bankGroupsFilterCtrl"></ngx-mat-select-search>
-          </mat-option>
-          <mat-optgroup *ngFor="let group of filteredBankGroups | async" [label]="group.name">
-            <mat-option *ngFor="let bank of group.banks" [value]="bank">
-              {{bank.name}}
-            </mat-option>
-          </mat-optgroup>
-        </mat-select>
-      </mat-form-field>
-    </p>
-    <p>
-      Selected Bank: {{bankGroupsCtrl.value?.name}}
-    </p>    
+  </div>
 </div>
