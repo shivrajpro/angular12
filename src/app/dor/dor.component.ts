@@ -55,6 +55,8 @@ export class DorComponent implements OnInit {
 
   public propValFilterCtrl: FormControl = new FormControl();
 
+  public filterMultiCtrl: FormControl = new FormControl();
+
   public filteredPropValsMulti: ReplaySubject<FilterItem[]> = new ReplaySubject<FilterItem[]>(1);
 
   constructor() { }
@@ -66,7 +68,7 @@ export class DorComponent implements OnInit {
     // load the initial values list
     this.filteredPropValsMulti.next(this.dimPropVals.slice());
 
-    // load the initial bank list
+    // load the initial groups list
     this.filteredCustomFilterGroups.next(this.copyFilterGroups(this.filterGroups));
 
     // listen for search field value changes
@@ -106,10 +108,10 @@ export class DorComponent implements OnInit {
     this.filteredPropValsMulti.pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(val => {
         if (selectAllValue) {
-          this.propValFilterCtrl.patchValue(val);
+          this.filterMultiCtrl.patchValue(val);
           this.selectedValues = this.dimPropVals.slice();
         } else {
-          this.propValFilterCtrl.patchValue([]);
+          this.filterMultiCtrl.patchValue([]);
           this.selectedValues = [];
         }
         this.selectionChange.emit(this.selectedValues);
@@ -118,7 +120,7 @@ export class DorComponent implements OnInit {
   }
 
   /**
-   * Sets the initial value after the filteredBanks are loaded initially
+   * Sets the initial value after the filtered items are loaded initially
    */
   protected setInitialValue() {
     this.filteredPropValsMulti
@@ -127,7 +129,7 @@ export class DorComponent implements OnInit {
         // setting the compareWith property to a comparison function
         // triggers initializing the selection according to the initial value of
         // the form control (i.e. _initializeSelection())
-        // this needs to be done after the filteredBanks are loaded initially
+        // this needs to be done after the filtered items are loaded initially
         // and after the mat-option elements are available
         if (this.multiSelect)
           this.multiSelect.compareWith = (a: FilterItem, b: FilterItem) => a && b && a.id === b.id;
@@ -139,7 +141,7 @@ export class DorComponent implements OnInit {
       return;
     }
     // get the search keyword
-    let search = this.propValFilterCtrl.value;
+    let search = this.propValFilterCtrl.value.name;
     if (!search) {
       this.filteredPropValsMulti.next(this.dimPropVals.slice());
       return;
@@ -165,7 +167,7 @@ export class DorComponent implements OnInit {
     } else {
       search = search.toLowerCase();
     }
-    // filter the banks
+    // filter the groups
     this.filteredCustomFilterGroups.next(
       filterGroupsCopy.filter(filterGroup => {
         const showFilterGroup = filterGroup.name.toLowerCase().indexOf(search) > -1;
@@ -175,17 +177,6 @@ export class DorComponent implements OnInit {
         return filterGroup.filterItems.length > 0;
       })
     );
-  }
-
-  protected copyBankGroups(bankGroups: BankGroup[]) {
-    const bankGroupsCopy: BankGroup[] = [];
-    bankGroups.forEach(bankGroup => {
-      bankGroupsCopy.push({
-        name: bankGroup.name,
-        banks: bankGroup.banks.slice()
-      });
-    });
-    return bankGroupsCopy;
   }
 
   protected copyFilterGroups(filterGroups: FilterGroup[]) {
