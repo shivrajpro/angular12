@@ -23,7 +23,7 @@
     <div class="single-select">
       <!-- <h3>Single selection with option groups</h3> -->
       <mat-form-field floatLabel="never">
-        <mat-select placeholder="Select Dimension" #dimensionSelect
+        <mat-select placeholder="Dimension" #dimensionSelect
         [ngModel]="selectedDimensions"
         (selectionChange)="selectedDimensionsChange.emit($event.value)"
         >
@@ -43,16 +43,16 @@
     <div class="multi-select">
         <!-- <h3>Multi Select</h3> -->
         <mat-form-field floatLabel="never" color="primary">
-            <mat-select [ngModel]="selectedValues" (ngModelChange)="selectionChange.emit($event)" placeholder="Banks"
+            <mat-select [ngModel]="selectedValues" (ngModelChange)="selectionChange.emit($event)" placeholder="Property Values"
                 [multiple]="true" #multiSelect>
                 <mat-option>
                     <ngx-mat-select-search [showToggleAllCheckbox]="true" (toggleAll)="toggleSelectAll($event)"
-                        [formControl]="bankMultiFilterCtrl" [toggleAllCheckboxTooltipMessage]="tooltipMessage"
+                        [formControl]="propValFilterCtrl" [toggleAllCheckboxTooltipMessage]="tooltipMessage"
                         [toogleAllCheckboxTooltipPosition]="'above'" placeholderLabel="Search">
                     </ngx-mat-select-search>
                 </mat-option>
-                <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
-                    {{bank.name}}
+                <mat-option *ngFor="let prop of filteredPropValsMulti | async" [value]="prop">
+                    {{prop.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

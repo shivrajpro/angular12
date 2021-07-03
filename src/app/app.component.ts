@@ -17,4 +17,9 @@ export class AppComponent {
     console.log('>> Selection changed', values);
     this.selectedItems = values;
   }
+
+  selectedDimPropValsChanged(values:any){
+    console.log('>> dim prop vals',values);
+    
+  }
 }

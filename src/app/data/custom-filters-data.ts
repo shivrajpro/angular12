@@ -13,6 +13,7 @@ export const FilterItems:FilterItem[] = [
     {name: 'Bank B (Switzerland)', id: 'B'},
 ];
 
+
 export const FilterGroups: FilterGroup[] = [
     {
         name: 'Switzerland',
