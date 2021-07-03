@@ -9,8 +9,12 @@ export interface FilterGroup{
 }
 
 export const FilterItems:FilterItem[] = [
-    {name: 'Bank A (Switzerland)', id: 'A'},
-    {name: 'Bank B (Switzerland)', id: 'B'},
+    {name: 'Bank A', id: 'A'},
+    {name: 'Bank B', id: 'B'},
+    {name: 'Bank C', id: 'C'},
+    {name: 'Bank D', id: 'D'},
+    {name: 'Bank E', id: 'E'},
+
 ];
 
 

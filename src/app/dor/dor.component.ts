@@ -76,6 +76,12 @@ export class DorComponent implements OnInit {
         this.filterCustomFilterGroups();
       });
 
+
+      this.propValFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filterDimPropVals();
+      });      
     // this.onAddClick();
   }
 
@@ -126,6 +132,24 @@ export class DorComponent implements OnInit {
         if (this.multiSelect)
           this.multiSelect.compareWith = (a: FilterItem, b: FilterItem) => a && b && a.id === b.id;
       });
+  }
+
+  protected filterDimPropVals(){
+    if (!this.dimPropVals) {
+      return;
+    }
+    // get the search keyword
+    let search = this.propValFilterCtrl.value;
+    if (!search) {
+      this.filteredPropValsMulti.next(this.dimPropVals.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the items
+    this.filteredPropValsMulti.next(
+      this.dimPropVals.filter(prop => prop.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 
   protected filterCustomFilterGroups() {
