@@ -1,0 +1,42 @@
+<!-- <p>custom-filter-group works!</p> -->
+<div class="group">
+    <div class="single-select">
+      <!-- <h3>Single selection with option groups</h3> -->
+      <mat-form-field floatLabel="never">
+        <mat-select placeholder="Dimension" #dimensionSelect
+        [ngModel]="selectedDimensions"
+        (selectionChange)="selectedDimensionsChange.emit($event.value)"
+        >
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterGroupsFilterCtrl"
+            placeholderLabel="Search"
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-optgroup *ngFor="let group of filteredCustomFilterGroups | async" [label]="group.name">
+            <mat-option *ngFor="let item of group.filterItems" [value]="item">
+              {{item.name}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="multi-select">
+        <!-- <h3>Multi Select</h3> -->
+        <mat-form-field floatLabel="never" color="primary">
+            <mat-select [ngModel]="selectedValues" (ngModelChange)="selectedValuesChange($event)" placeholder="Property Values"
+            [multiple]="true" #multiSelect
+            [matTooltip]="propValsTooltip"
+            >
+                <mat-option>
+                    <ngx-mat-select-search [showToggleAllCheckbox]="true" (toggleAll)="toggleSelectAll($event)"
+                        [formControl]="propValFilterCtrl" [toggleAllCheckboxTooltipMessage]="tooltipMessage"
+                        [toogleAllCheckboxTooltipPosition]="'above'" placeholderLabel="Search">
+                    </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let prop of filteredPropValsMulti | async" [value]="prop">
+                    {{prop.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>

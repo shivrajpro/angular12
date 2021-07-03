@@ -19,6 +19,7 @@ import { EmpirixComponent } from './empirix/empirix.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DorComponent } from './dor/dor.component';
+import { CustomFilterGroupComponent } from './dor/custom-filter-group/custom-filter-group.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DorComponent } from './dor/dor.component';
     CuppaLabsComponent,
     CustomFilterComponent,
     EmpirixComponent,
-    DorComponent
+    DorComponent,
+    CustomFilterGroupComponent
   ],
   imports: [
     BrowserModule,
