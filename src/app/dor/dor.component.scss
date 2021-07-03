@@ -24,21 +24,8 @@
 
     }
 
-    .group{
-        // border: 1px solid red;
+    .filter-group{
         display: flex;
-
-        .single-select{
-            // width: 180px;
-        }
-        
-        .multi-select{
-            // width: 180px;
-        }
-
-        .delete-btn{
-            // width: 10%;
-            margin: 10px 0px 0px 15px;
-        }
+        width: 90%;
     }
 }

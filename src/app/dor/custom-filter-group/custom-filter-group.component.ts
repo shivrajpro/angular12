@@ -101,8 +101,9 @@ export class CustomFilterGroupComponent implements OnInit {
     this.numOfGroups.push(this.numOfGroups.length);
   }
 
-  onDeleteClick(index: number) {
-    this.numOfGroups = this.numOfGroups.filter(i => i !== index);
+  dimensionChange(value:FilterItem){
+    this.selectedDimensionsChange.emit(value);
+    this.selectedDimensions.push(value);
   }
 
   selectedValuesChange(values: FilterItem[]) {

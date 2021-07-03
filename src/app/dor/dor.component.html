@@ -2,12 +2,22 @@
 <div class="custom-filter-container">
   <div class="top">
     <div class="label">Filters</div>
-    <div (click)="onAddClick()" ><mat-icon>add</mat-icon></div>
+    <div (click)="onAddClick()">
+      <button mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      </div>
   </div>
-  <div *ngFor="let n of numOfGroups">
+  <div class="filter-group" *ngFor="let n of numOfGroups">
     <app-custom-filter-group
     (selectedDimensionsChange)="selectionChanged($event)" 
     (selectionChange)="selectedDimPropValsChanged($event)"    
     ></app-custom-filter-group>
+
+    <div class="delete-group">
+      <button mat-icon-button (click)="onDeleteClick(n)" >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>    
   </div>
 </div>
