@@ -59,6 +59,8 @@ export class DorComponent implements OnInit {
 
   public filteredPropValsMulti: ReplaySubject<FilterItem[]> = new ReplaySubject<FilterItem[]>(1);
 
+  public propValsTooltip:string = "";
+
   constructor() { }
 
   ngOnInit() {
@@ -84,7 +86,7 @@ export class DorComponent implements OnInit {
       .subscribe(() => {
         this.filterDimPropVals();
       });      
-    // this.onAddClick();
+    this.onAddClick();
   }
 
   ngAfterViewInit() {
@@ -104,6 +106,13 @@ export class DorComponent implements OnInit {
     this.numOfGroups = this.numOfGroups.filter(i => i !== index);
   }
 
+  selectedValuesChange(values:FilterItem[]){
+    this.selectionChange.emit(values);
+
+    const selectedNames = values.map(v=>v.name);
+    this.propValsTooltip = selectedNames.join();
+  }
+
   toggleSelectAll(selectAllValue: boolean) {
     this.filteredPropValsMulti.pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(val => {
@@ -116,7 +125,10 @@ export class DorComponent implements OnInit {
         }
         this.selectionChange.emit(this.selectedValues);
       });
-
+      const selectedNames = this.selectedValues.map(v=>v.name);
+    
+      this.propValsTooltip = selectedNames.join();
+  
   }
 
   /**

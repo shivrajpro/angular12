@@ -43,8 +43,10 @@
     <div class="multi-select">
         <!-- <h3>Multi Select</h3> -->
         <mat-form-field floatLabel="never" color="primary">
-            <mat-select [ngModel]="selectedValues" (ngModelChange)="selectionChange.emit($event)" placeholder="Property Values"
-                [multiple]="true" #multiSelect>
+            <mat-select [ngModel]="selectedValues" (ngModelChange)="selectedValuesChange($event)" placeholder="Property Values"
+            [multiple]="true" #multiSelect
+            [matTooltip]="propValsTooltip"
+            >
                 <mat-option>
                     <ngx-mat-select-search [showToggleAllCheckbox]="true" (toggleAll)="toggleSelectAll($event)"
                         [formControl]="propValFilterCtrl" [toggleAllCheckboxTooltipMessage]="tooltipMessage"
