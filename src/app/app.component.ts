@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilterItem } from './data/custom-filters-data';
 import { Bank } from "./data/demo-data";
 @Component({
   selector: 'app-root',
@@ -10,10 +11,10 @@ export class AppComponent {
 
   defaultValue = [{ name: 'Bank R', id: 'R' }];
 
-  selectedBanks:Bank[] = [];
+  selectedItems:FilterItem[] = [];
 
-  selectionChanged(values: Bank[]) {
-    console.log('Selection changed', values);
-    this.selectedBanks = values;
+  selectionChanged(values: FilterItem[]) {
+    console.log('>> Selection changed', values);
+    this.selectedItems = values;
   }
 }

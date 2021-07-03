@@ -1,6 +1,6 @@
 <h1>DOR Works!</h1>
 <p>Dimension dropdown</p>
-<mat-form-field floatLabel="never">
+<!-- <mat-form-field floatLabel="never">
   <mat-select [formControl]="filterGroupsCtrl" placeholder="Select Dimension" #dimensionSelect>
     <mat-option>
       <ngx-mat-select-search [formControl]="filterGroupsFilterCtrl"
@@ -13,7 +13,7 @@
       </mat-option>
     </mat-optgroup>
   </mat-select>
-</mat-form-field>
+</mat-form-field> -->
 <div class="custom-filter-container">
   <div class="top">
     <div class="label">Filters</div>
@@ -23,13 +23,18 @@
     <div class="single-select">
       <!-- <h3>Single selection with option groups</h3> -->
       <mat-form-field floatLabel="never">
-        <mat-select [formControl]="bankGroupsCtrl" placeholder="Bank">
+        <mat-select placeholder="Select Dimension" #dimensionSelect
+        [ngModel]="selectedDimensions"
+        (selectionChange)="selectedDimensionsChange.emit($event.value)"
+        >
           <mat-option>
-            <ngx-mat-select-search [formControl]="bankGroupsFilterCtrl"></ngx-mat-select-search>
+            <ngx-mat-select-search [formControl]="filterGroupsFilterCtrl"
+            placeholderLabel="enter dimension name"
+            ></ngx-mat-select-search>
           </mat-option>
-          <mat-optgroup *ngFor="let group of filteredBankGroups | async" [label]="group.name">
-            <mat-option *ngFor="let bank of group.banks" [value]="bank">
-              {{bank.name}}
+          <mat-optgroup *ngFor="let group of filteredCustomFilterGroups | async" [label]="group.name">
+            <mat-option *ngFor="let item of group.filterItems" [value]="item">
+              {{item.name}}
             </mat-option>
           </mat-optgroup>
         </mat-select>

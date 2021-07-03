@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { CustomFilterGroups, FilterGroup, FilterGroups } from '../data/custom-filters-data';
+import { CustomFilterGroups, FilterGroup, FilterGroups, FilterItem } from '../data/custom-filters-data';
 import { Bank, BANKS, BankGroup, BANKGROUPS } from '../data/demo-data';
 
 @Component({
@@ -64,6 +64,10 @@ export class DorComponent implements OnInit {
   public filteredCustomFilterGroups: ReplaySubject<FilterGroup[]> = new ReplaySubject<FilterGroup[]>(1);
 
   protected filterGroups: FilterGroup[] = FilterGroups;
+
+  @Input() selectedDimensions: FilterItem[] = [];
+
+  @Output() selectedDimensionsChange = new EventEmitter();
 
   constructor() { }
 

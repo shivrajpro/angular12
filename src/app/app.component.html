@@ -1,4 +1,4 @@
 <!-- <app-empirix></app-empirix> -->
 <div class="flex-container">
-    <app-dor></app-dor>
+    <app-dor [selectedDimensions]="selectedItems" (selectedDimensionsChange)="selectionChanged($event)" ></app-dor>
 </div>
