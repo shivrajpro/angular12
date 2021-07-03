@@ -3,7 +3,9 @@
     <div class="single-select">
       <!-- <h3>Single selection with option groups</h3> -->
       <mat-form-field floatLabel="never">
-        <mat-select placeholder="Dimension"
+        <mat-select 
+        [(ngModel)]="selectedDimension"
+        placeholder="Dimension"
         (selectionChange)="dimensionChange($event.value);"
         >
           <mat-option>
@@ -22,10 +24,10 @@
     <div class="multi-select">
         <!-- <h3>Multi Select</h3> -->
         <mat-form-field floatLabel="never" color="primary">
-            <mat-select [ngModel]="selectedValues" (ngModelChange)="selectedValuesChange($event)" placeholder="Property Values"
+            <mat-select [ngModel]="selectedValues" (ngModelChange)="valuesChange($event)" placeholder="Property Values"
             [multiple]="true"
             [matTooltip]="propValsTooltip"
-            [disabled]="selectedDimensions.length === 0"
+            [disabled]="selectedDimension.name.length === 0"
             >
                 <mat-option>
                     <ngx-mat-select-search [showToggleAllCheckbox]="true" (toggleAll)="toggleSelectAll($event)"

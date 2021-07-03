@@ -16,7 +16,7 @@ export class CustomFilterGroupComponent implements OnInit {
   // 2. selectedValues should be bound to whatever is selected
   @Input() selectedValues: FilterItem[] = [];
   // 3. output whenever a change is made to selectedValues
-  @Output() selectionChange = new EventEmitter();
+  @Output() selectedValuesChange = new EventEmitter();
 
   public tooltipMessage = 'Select All / Unselect All';
 
@@ -24,8 +24,6 @@ export class CustomFilterGroupComponent implements OnInit {
 
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
-
-
 
   // props for custom filter component
   // 1. number of groups
@@ -43,10 +41,9 @@ export class CustomFilterGroupComponent implements OnInit {
   /** list of filter groups */
   protected filterGroups: FilterGroup[] = FilterGroups;
 
-  @Input() selectedDimensions: FilterItem[] = [];
+  @Input() selectedDimension: FilterItem = {id:"", name:""};
 
-  @Output() selectedDimensionsChange = new EventEmitter();
-
+  @Output() selectedDimensionChange = new EventEmitter();
 
 
   // props for dimension property values multi-select
@@ -102,12 +99,12 @@ export class CustomFilterGroupComponent implements OnInit {
   }
 
   dimensionChange(value:FilterItem){
-    this.selectedDimensionsChange.emit(value);
-    this.selectedDimensions.push(value);
+    this.selectedDimensionChange.emit(value);
+    // this.selectedDimension = value;
   }
 
-  selectedValuesChange(values: FilterItem[]) {
-    this.selectionChange.emit(values);
+  valuesChange(values: FilterItem[]) {
+    this.selectedValuesChange.emit(values);
 
     const selectedNames = values.map(v => v.name);
     this.propValsTooltip = selectedNames.join();
@@ -123,7 +120,7 @@ export class CustomFilterGroupComponent implements OnInit {
           this.filterMultiCtrl.patchValue([]);
           this.selectedValues = [];
         }
-        this.selectionChange.emit(this.selectedValues);
+        this.selectedValuesChange.emit(this.selectedValues);
       });
     const selectedNames = this.selectedValues.map(v => v.name);
 

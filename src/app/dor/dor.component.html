@@ -10,7 +10,7 @@
   </div>
   <div class="filter-group" *ngFor="let n of numOfGroups">
     <app-custom-filter-group
-    (selectedDimensionsChange)="selectionChanged($event)" 
+    (selectedDimensionChange)="selectionChanged($event)" 
     (selectionChange)="selectedDimPropValsChanged($event)"    
     ></app-custom-filter-group>
 
