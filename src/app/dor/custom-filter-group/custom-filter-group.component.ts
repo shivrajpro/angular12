@@ -30,16 +30,18 @@ export class CustomFilterGroupComponent implements OnInit {
   public numOfGroups: number[] = [];
 
   /** control for the selected dimension for option groups */
-  public filterGroupsCtrl: FormControl = new FormControl();
+  public dimensionCtrl: FormControl = new FormControl();
 
   /** control for the MatSelect filter keyword multi-selection */
-  public filterGroupsFilterCtrl: FormControl = new FormControl();
+  public dimensionFilterCtrl: FormControl = new FormControl();
 
   /** list of filter groups filtered by search keyword for option groups */
-  public filteredCustomFilterGroups: ReplaySubject<FilterGroup[]> = new ReplaySubject<FilterGroup[]>(1);
+  public filteredDimensions: ReplaySubject<FilterGroup[]> = new ReplaySubject<FilterGroup[]>(1);
 
   /** list of filter groups */
   protected filterGroups: FilterGroup[] = FilterGroups;
+
+  @ViewChild('singleSelect') singleSelect: MatSelect;
 
   @Input() selectedDimension: FilterItem = {id:"", name:""};
 
@@ -63,19 +65,20 @@ export class CustomFilterGroupComponent implements OnInit {
     // set initial selection
     // this.bankMultiCtrl.setValue([this.banks[10], this.banks[11], this.banks[12]]);
 
+    this.dimensionCtrl.setValue(this.filterGroups[1].filterItems[0]);
+    this.filteredDimensions.next(this.filterGroups.slice());
+    // listen for search field value changes
+    this.dimensionFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filterDimensions();
+      });
+
     // load the initial values list
     this.filteredPropValsMulti.next(this.dimPropVals.slice());
 
     // load the initial groups list
-    this.filteredCustomFilterGroups.next(this.copyFilterGroups(this.filterGroups));
-
-    // listen for search field value changes
-    this.filterGroupsFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterCustomFilterGroups();
-      });
-
+    this.filteredDimensions.next(this.copyFilterGroups(this.filterGroups));
 
     this.propValFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
@@ -132,6 +135,11 @@ export class CustomFilterGroupComponent implements OnInit {
    * Sets the initial value after the filtered items are loaded initially
    */
   protected setInitialValue() {
+    this.filteredDimensions.pipe((take(1), takeUntil(this._onDestroy)))
+    .subscribe(()=>{
+      this.singleSelect.compareWith = (a: FilterItem, b: FilterItem) => a && b && a.id === b.id;      
+    })
+  
     this.filteredPropValsMulti
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {
@@ -143,6 +151,24 @@ export class CustomFilterGroupComponent implements OnInit {
         if (this.multiSelect)
           this.multiSelect.compareWith = (a: FilterItem, b: FilterItem) => a && b && a.id === b.id;
       });
+  }
+
+  protected filterDimensions() {
+    if (!this.filterGroups) {
+      return;
+    }
+    // get the search keyword
+    let search = this.dimensionFilterCtrl.value;
+    if (!search) {
+      this.filteredDimensions.next(this.filterGroups.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the items
+    this.filteredDimensions.next(
+      this.filterGroups.filter(item => item.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 
   protected filterDimPropVals() {
@@ -168,16 +194,16 @@ export class CustomFilterGroupComponent implements OnInit {
       return;
     }
     // get the search keyword
-    let search = this.filterGroupsFilterCtrl.value;
+    let search = this.dimensionFilterCtrl.value;
     const filterGroupsCopy = this.copyFilterGroups(this.filterGroups);
     if (!search) {
-      this.filteredCustomFilterGroups.next(filterGroupsCopy);
+      this.filteredDimensions.next(filterGroupsCopy);
       return;
     } else {
       search = search.toLowerCase();
     }
     // filter the groups
-    this.filteredCustomFilterGroups.next(
+    this.filteredDimensions.next(
       filterGroupsCopy.filter(filterGroup => {
         const showFilterGroup = filterGroup.name.toLowerCase().indexOf(search) > -1;
         if (!showFilterGroup) {

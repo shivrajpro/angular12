@@ -3,17 +3,18 @@
     <div class="single-select">
       <!-- <h3>Single selection with option groups</h3> -->
       <mat-form-field floatLabel="never">
-        <mat-select 
-        [(ngModel)]="selectedDimension"
+        <mat-select
+        [formControl]="dimensionCtrl"
         placeholder="Dimension"
         (selectionChange)="dimensionChange($event.value);"
+        #singleSelect
         >
           <mat-option>
-            <ngx-mat-select-search [formControl]="filterGroupsFilterCtrl"
+            <ngx-mat-select-search [formControl]="dimensionFilterCtrl"
             placeholderLabel="Search"
             ></ngx-mat-select-search>
           </mat-option>
-          <mat-optgroup *ngFor="let group of filteredCustomFilterGroups | async" [label]="group.name">
+          <mat-optgroup *ngFor="let group of filteredDimensions | async" [label]="group.name">
             <mat-option *ngFor="let item of group.filterItems" [value]="item">
               {{item.name}}
             </mat-option>
