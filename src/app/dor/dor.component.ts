@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { CustomFilterGroups, FilterGroup, FilterGroups } from '../data/custom-filters-data';
 import { Bank, BANKS, BankGroup, BANKGROUPS } from '../data/demo-data';
 
 @Component({
@@ -11,8 +12,6 @@ import { Bank, BANKS, BankGroup, BANKGROUPS } from '../data/demo-data';
   styleUrls: ['./dor.component.scss']
 })
 export class DorComponent implements OnInit {
-  // 1. number of groups
-  numOfGroups: number[] = [];
 
   // props for multi select dropdown
   // 2. selectedValues should be bound to whatever is selected
@@ -51,7 +50,21 @@ export class DorComponent implements OnInit {
 
   /** list of bank groups filtered by search keyword for option groups */
   public filteredBankGroups: ReplaySubject<BankGroup[]> = new ReplaySubject<BankGroup[]>(1);
-  
+
+
+  // props for custom filter component
+  // 1. number of groups
+  public numOfGroups: number[] = [];
+
+  public filterGroupsCtrl: FormControl = new FormControl();
+
+
+  public filterGroupsFilterCtrl: FormControl = new FormControl();
+
+  public filteredCustomFilterGroups: ReplaySubject<FilterGroup[]> = new ReplaySubject<FilterGroup[]>(1);
+
+  protected filterGroups: FilterGroup[] = FilterGroups;
+
   constructor() { }
 
   ngOnInit() {
@@ -71,18 +84,26 @@ export class DorComponent implements OnInit {
     // load the initial bank list
     this.filteredBankGroups.next(this.copyBankGroups(this.bankGroups));
 
+    this.filteredCustomFilterGroups.next(this.copyFilterGroups(this.filterGroups));
+
     // listen for search field value changes
     this.bankGroupsFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterBankGroups();
-      }); 
-      
+      });
+
+    this.filterGroupsFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filterCustomFilterGroups();
+      });
+
     this.onAddClick();
   }
 
   ngAfterViewInit() {
-    this.setInitialValue();  
+    this.setInitialValue();
   }
 
   ngOnDestroy() {
@@ -90,12 +111,12 @@ export class DorComponent implements OnInit {
     this._onDestroy.complete();
   }
 
-  onAddClick(){
+  onAddClick() {
     this.numOfGroups.push(this.numOfGroups.length);
   }
 
-  onDeleteClick(index:number){
-    this.numOfGroups = this.numOfGroups.filter(i=>i!==index);
+  onDeleteClick(index: number) {
+    this.numOfGroups = this.numOfGroups.filter(i => i !== index);
   }
 
   toggleSelectAll(selectAllValue: boolean) {
@@ -124,7 +145,8 @@ export class DorComponent implements OnInit {
         // the form control (i.e. _initializeSelection())
         // this needs to be done after the filteredBanks are loaded initially
         // and after the mat-option elements are available
-        this.multiSelect.compareWith = (a: Bank, b: Bank) => a && b && a.id === b.id;
+        if (this.multiSelect)
+          this.multiSelect.compareWith = (a: Bank, b: Bank) => a && b && a.id === b.id;
       });
   }
 
@@ -170,7 +192,32 @@ export class DorComponent implements OnInit {
       })
     );
   }
-    
+
+  protected filterCustomFilterGroups() {
+    if (!this.filterGroups) {
+      return;
+    }
+    // get the search keyword
+    let search = this.filterGroupsFilterCtrl.value;
+    const filterGroupsCopy = this.copyFilterGroups(this.filterGroups);
+    if (!search) {
+      this.filteredCustomFilterGroups.next(filterGroupsCopy);
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.filteredCustomFilterGroups.next(
+      filterGroupsCopy.filter(filterGroup => {
+        const showFilterGroup = filterGroup.name.toLowerCase().indexOf(search) > -1;
+        if (!showFilterGroup) {
+          filterGroup.filterItems = filterGroup.filterItems.filter(filterItem => filterItem.name.toLowerCase().indexOf(search) > -1);
+        }
+        return filterGroup.filterItems.length > 0;
+      })
+    );
+  }
+
   protected copyBankGroups(bankGroups: BankGroup[]) {
     const bankGroupsCopy: BankGroup[] = [];
     bankGroups.forEach(bankGroup => {
@@ -182,7 +229,15 @@ export class DorComponent implements OnInit {
     return bankGroupsCopy;
   }
 
-  getTooltip() {
-    return "";
+  protected copyFilterGroups(filterGroups:FilterGroup[]){
+    const filterGroupsCopy: FilterGroup[] = [];
+    filterGroups.forEach(filterGroup => {
+      filterGroupsCopy.push({
+        name: filterGroup.name,
+        filterItems: filterGroup.filterItems.slice()
+      });
+    });
+    return filterGroupsCopy;
   }
+
 }
