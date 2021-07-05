@@ -12,23 +12,11 @@ import { FilterGroup, FilterGroups, FilterItem, FilterItems } from '../../data/c
 })
 export class CustomFilterGroupComponent implements OnInit {
 
-  // props for multi select dropdown
-  // 2. selectedValues should be bound to whatever is selected
-  @Input() selectedValues: FilterItem[] = [];
-  // 3. output whenever a change is made to selectedValues
-  @Output() selectedValuesChange = new EventEmitter();
-
-  public tooltipMessage = 'Select All / Unselect All';
-
-  @ViewChild('multiSelect', { static: true }) multiSelect: MatSelect;
-
+  @Input() index: number;
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
-  // props for custom filter component
-  // 1. number of groups
-  public numOfGroups: number[] = [];
-
+  // props for single-select dimension dropdown
   /** control for the selected dimension for option groups */
   public dimensionCtrl: FormControl = new FormControl();
 
@@ -43,7 +31,7 @@ export class CustomFilterGroupComponent implements OnInit {
 
   @ViewChild('singleSelect') singleSelect: MatSelect;
 
-  @Input() selectedDimension: FilterItem = {id:"", name:""};
+  @Input() selectedDimension: FilterItem = { id: "", name: "" };
 
   @Output() selectedDimensionChange = new EventEmitter();
 
@@ -59,14 +47,23 @@ export class CustomFilterGroupComponent implements OnInit {
 
   public propValsTooltip: string = "";
 
+  public tooltipMessage = 'Select All / Unselect All';
+
+  @ViewChild('multiSelect', { static: true }) multiSelect: MatSelect;
+
+  @Input() selectedValues: FilterItem[] = [];
+
+  @Output() selectedValuesChange = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
     // set initial selection
-    // this.bankMultiCtrl.setValue([this.banks[10], this.banks[11], this.banks[12]]);
-
-    this.dimensionCtrl.setValue(this.filterGroups[1].filterItems[0]);
+    // this.dimensionCtrl.setValue(this.filterGroups[1].filterItems[0]);
     this.filteredDimensions.next(this.filterGroups.slice());
+    // this.selectedDimension = this.filterGroups[1].filterItems[0];
+
+
     // listen for search field value changes
     this.dimensionFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
@@ -85,7 +82,6 @@ export class CustomFilterGroupComponent implements OnInit {
       .subscribe(() => {
         this.filterDimPropVals();
       });
-    this.onAddClick();
   }
 
   ngAfterViewInit() {
@@ -97,17 +93,13 @@ export class CustomFilterGroupComponent implements OnInit {
     this._onDestroy.complete();
   }
 
-  onAddClick() {
-    this.numOfGroups.push(this.numOfGroups.length);
-  }
-
-  dimensionChange(value:FilterItem){
-    this.selectedDimensionChange.emit(value);
-    // this.selectedDimension = value;
+  dimensionChange(value: FilterItem) {
+    this.selectedDimensionChange.emit({ value, index: this.index });
+    this.selectedDimension = value;
   }
 
   valuesChange(values: FilterItem[]) {
-    this.selectedValuesChange.emit(values);
+    this.selectedValuesChange.emit({ values, index: this.index });
 
     const selectedNames = values.map(v => v.name);
     this.propValsTooltip = selectedNames.join();
@@ -136,10 +128,10 @@ export class CustomFilterGroupComponent implements OnInit {
    */
   protected setInitialValue() {
     this.filteredDimensions.pipe((take(1), takeUntil(this._onDestroy)))
-    .subscribe(()=>{
-      this.singleSelect.compareWith = (a: FilterItem, b: FilterItem) => a && b && a.id === b.id;      
-    })
-  
+      .subscribe(() => {
+        this.singleSelect.compareWith = (a: FilterItem, b: FilterItem) => a && b && a.id === b.id;
+      })
+
     this.filteredPropValsMulti
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {

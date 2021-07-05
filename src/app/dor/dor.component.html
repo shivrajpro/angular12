@@ -10,8 +10,9 @@
   </div>
   <div class="filter-group" *ngFor="let n of numOfGroups">
     <app-custom-filter-group
-    (selectedDimensionChange)="selectionChanged($event)" 
-    (selectionChange)="selectedDimPropValsChanged($event)"    
+    [index]="n"
+    (selectedDimensionChange)="dimensionChanged($event)" 
+    (selectedValuesChange)="propValsChanged($event)"    
     ></app-custom-filter-group>
 
     <div class="delete-group">

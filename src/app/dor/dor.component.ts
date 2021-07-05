@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterItem } from '../data/custom-filters-data';
 
 @Component({
   selector: 'app-dor',
@@ -12,10 +11,12 @@ export class DorComponent implements OnInit {
   // 1. number of groups
   numOfGroups: number[] = [];
 
+  selectedCustomFilters: any = {};
+
   constructor() { }
 
   ngOnInit() {
-   this.onAddClick();
+    this.onAddClick();
   }
 
   ngOnDestroy() {
@@ -29,11 +30,17 @@ export class DorComponent implements OnInit {
     this.numOfGroups = this.numOfGroups.filter(i => i !== index);
   }
 
-  selectionChanged(values: FilterItem[]) {
-    console.log('>> Selection changed', values);
+  dimensionChanged(data: any) {
+    console.log('>> Dimension changed', data);
+    const newObj = { dimName: data.value.name, values: [] };
+
+    this.selectedCustomFilters[data.index] = newObj;
+    console.log('>> tracker', this.selectedCustomFilters);
   }
 
-  selectedDimPropValsChanged(values:any){
-    console.log('>> dim prop vals',values);
-  }  
+  propValsChanged(data: any) {
+    console.log('>> dim prop vals', data);
+    this.selectedCustomFilters[data.index].values = data.values;
+    console.log('>> tracker', this.selectedCustomFilters);
+  }
 }
