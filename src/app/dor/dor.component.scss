@@ -1,6 +1,6 @@
 .custom-filter-container{
     // border: 1px solid black;
-    width: 400px;
+    width: 340px;
     mat-icon{
         cursor: pointer;
     }
@@ -25,7 +25,8 @@
     }
 
     .filter-group{
+        // border: 1px solid green;
         display: flex;
-        width: 90%;
+        width: 300px;
     }
 }
