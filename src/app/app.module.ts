@@ -20,7 +20,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DorComponent } from './dor/dor.component';
 import { CustomFilterGroupComponent } from './dor/custom-filter-group/custom-filter-group.component';
+import { MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
+import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { PublicPageComponent } from './public-page/public-page.component';
+import { RestrictedPageComponent } from './restricted-page/restricted-page.component';
 
+
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth:{
+      clientId:'bc0e6bfb-f8d6-4ed1-aad9-3d5a27522863',
+      redirectUri:'http://localhost:4200/'
+    }
+  })
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +43,9 @@ import { CustomFilterGroupComponent } from './dor/custom-filter-group/custom-fil
     CustomFilterComponent,
     EmpirixComponent,
     DorComponent,
-    CustomFilterGroupComponent
+    CustomFilterGroupComponent,
+    PublicPageComponent,
+    RestrictedPageComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +60,18 @@ import { CustomFilterGroupComponent } from './dor/custom-filter-group/custom-fil
     MatTooltipModule,
     AngularMultiSelectModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+
+
+    MsalModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MSAL_INSTANCE,
+      useFactory:MSALInstanceFactory
+    },
+    MsalService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

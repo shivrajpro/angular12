@@ -1,5 +1,19 @@
 <!-- <app-empirix></app-empirix> -->
 <div class="flex-container">
     <!-- <app-multi-select></app-multi-select> -->
-    <app-dor></app-dor>
+    <!-- <app-dor></app-dor> -->
+    <h2>test sign in with MS Account</h2>
+</div>
+<div class="wrapper">
+
+    <button routerLink="" >Home</button>
+    <button routerLink="public-page" >Public Page</button>
+    <button routerLink="restricted-page" >Restricted Page</button>
+    <button *ngIf="!isLoggedIn()" (click)="onLogin()">Sign In</button>
+    <button *ngIf="isLoggedIn()" (click)="logout()">Sign Out</button>
+    <p *ngIf="!isLoggedIn()">You are not logged in</p>
+    <p *ngIf="isLoggedIn()">You are now logged in</p>
+
+    <router-outlet></router-outlet>
+
 </div>
