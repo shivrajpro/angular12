@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from "@angular/material/input";
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectInfiniteScrollModule } from 'ng-mat-select-infinite-scroll';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,14 +56,13 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatInputModule,
     NgxMatSelectSearchModule,
     MatSelectInfiniteScrollModule,
     MatTooltipModule,
     AngularMultiSelectModule,
     MatButtonModule,
     MatIconModule,
-
-
     MsalModule
   ],
   providers: [
