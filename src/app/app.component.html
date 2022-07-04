@@ -5,37 +5,7 @@
     <h2>test sign in with MS Account</h2>
 </div>
 <!-- <div class="wrapper">
-
-    <button routerLink="" >Home</button>
-    <button routerLink="public-page" >Public Page</button>
-    <button routerLink="restricted-page" >Restricted Page</button>
-    <button *ngIf="!isLoggedIn()" (click)="onLogin()">Sign In</button>
-    <button *ngIf="isLoggedIn()" (click)="logout()">Sign Out</button>
-    <p *ngIf="!isLoggedIn()">You are not logged in</p>
-    <p *ngIf="isLoggedIn()">You are now logged in</p>
-
-    <router-outlet></router-outlet>
-
+  <app-microsoft-login></app-microsoft-login>  
 </div> -->
-<button (click)="setError()" >Set Error</button>
-<button (click)="removeError()" >Remove Error</button>
-<form [formGroup]="loginForm" (submit)="submit()">
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label> E-mail
-      </mat-label>
-      <input matInput formControlName="email" required>
-      <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
-        <span *ngIf="loginForm.controls.email.errors?.blank">This field is mandatory.</span>
-        <span *ngIf="loginForm.controls.email.errors?.pattern">This field is invalid.</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label> Password
-      </mat-label>
-      <input matInput formControlName="password" type="password">
-      <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
-        <span *ngIf="loginForm.controls.password.errors?.required">This field is mandatory.</span>
-      </mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Log In</button>
-  </form>
+<!-- reactive forms -->
+<app-reactive-forms></app-reactive-forms>

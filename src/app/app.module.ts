@@ -25,6 +25,8 @@ import { MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
 import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { PublicPageComponent } from './public-page/public-page.component';
 import { RestrictedPageComponent } from './restricted-page/restricted-page.component';
+import { MicrosoftLoginComponent } from './microsoft-login/microsoft-login.component';
+import { ReactiveFormsComponent } from './reactive-forms/reactive-forms.component';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -46,7 +48,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     DorComponent,
     CustomFilterGroupComponent,
     PublicPageComponent,
-    RestrictedPageComponent
+    RestrictedPageComponent,
+    MicrosoftLoginComponent,
+    ReactiveFormsComponent
   ],
   imports: [
     BrowserModule,
