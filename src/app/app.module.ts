@@ -27,6 +27,10 @@ import { PublicPageComponent } from './public-page/public-page.component';
 import { RestrictedPageComponent } from './restricted-page/restricted-page.component';
 import { MicrosoftLoginComponent } from './microsoft-login/microsoft-login.component';
 import { ReactiveFormsComponent } from './reactive-forms/reactive-forms.component';
+import { ActiveUsersComponent } from './services-assignment/active-users/active-users.component';
+import { InactiveUsersComponent } from './services-assignment/inactive-users/inactive-users.component';
+import { UsersService } from './services-assignment/services/users.service';
+import { CounterService } from './services-assignment/services/counter.service';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -50,7 +54,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PublicPageComponent,
     RestrictedPageComponent,
     MicrosoftLoginComponent,
-    ReactiveFormsComponent
+    ReactiveFormsComponent,
+    ActiveUsersComponent,
+    InactiveUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +80,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       provide: MSAL_INSTANCE,
       useFactory:MSALInstanceFactory
     },
-    MsalService
+    MsalService,
+    CounterService
   ],
   bootstrap: [AppComponent]
 })

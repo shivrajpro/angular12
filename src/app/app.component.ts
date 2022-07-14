@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MsalService } from '@azure/msal-angular';
 import { FilterItem } from './data/custom-filters-data';
+import { UsersService } from './services-assignment/services/users.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -14,7 +15,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [UsersService]
 })
 export class AppComponent implements OnInit {
   title = 'my-app';
@@ -22,8 +24,7 @@ export class AppComponent implements OnInit {
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
   constructor(
-    private formBuilder: FormBuilder  
-  ){}
+    private formBuilder: FormBuilder  ){}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -45,4 +46,5 @@ export class AppComponent implements OnInit {
     }
     console.log(this.loginForm.value);
   }  
+
 }
