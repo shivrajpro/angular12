@@ -9,5 +9,8 @@
 </div> -->
 <!-- reactive forms -->
 <!-- <app-reactive-forms></app-reactive-forms> -->
-<app-active-users></app-active-users>
-<app-inactive-users></app-inactive-users>
+<!-- <app-active-users></app-active-users>
+<app-inactive-users></app-inactive-users> -->
+<app-inline-edit [label]="'Last Name'"  [fcName]="'lastName'" [value]="fcValue" 
+(inputSaved)="inputRec($event)"
+></app-inline-edit>

@@ -1,0 +1,18 @@
+<div *ngIf="!editing"
+class="form-control-display">
+  <p>{{label}}</p>
+  <p>{{value}}
+    <mat-icon (click)="editing=true;" style="cursor: pointer">edit</mat-icon>
+  </p>
+
+</div>
+<p *ngIf="editing">
+  <mat-form-field appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="inputModel"
+    >
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+  <mat-icon (click)="onSave();" style="cursor: pointer">done</mat-icon>
+</p>

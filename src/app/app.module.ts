@@ -31,6 +31,7 @@ import { ActiveUsersComponent } from './services-assignment/active-users/active-
 import { InactiveUsersComponent } from './services-assignment/inactive-users/inactive-users.component';
 import { UsersService } from './services-assignment/services/users.service';
 import { CounterService } from './services-assignment/services/counter.service';
+import { InlineEditComponent } from './inline-edit/inline-edit.component';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -56,7 +57,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MicrosoftLoginComponent,
     ReactiveFormsComponent,
     ActiveUsersComponent,
-    InactiveUsersComponent
+    InactiveUsersComponent,
+    InlineEditComponent
   ],
   imports: [
     BrowserModule,

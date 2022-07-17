@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
   title = 'my-app';
   loginForm: FormGroup;
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
-
+  editing = false;
+  fcValue = "test";
   constructor(
     private formBuilder: FormBuilder  ){}
 
@@ -46,5 +47,10 @@ export class AppComponent implements OnInit {
     }
     console.log(this.loginForm.value);
   }  
+
+  inputRec(data:any){
+    console.log('input rec in app cmp=',data);
+    this.fcValue = data;
+  }
 
 }
