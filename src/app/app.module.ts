@@ -32,6 +32,7 @@ import { InactiveUsersComponent } from './services-assignment/inactive-users/ina
 import { UsersService } from './services-assignment/services/users.service';
 import { CounterService } from './services-assignment/services/counter.service';
 import { InlineEditComponent } from './inline-edit/inline-edit.component';
+import { PipesAssignmentComponent } from './pipes-assignment/pipes-assignment.component';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -58,7 +59,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ReactiveFormsComponent,
     ActiveUsersComponent,
     InactiveUsersComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    PipesAssignmentComponent
   ],
   imports: [
     BrowserModule,
