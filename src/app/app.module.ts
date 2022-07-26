@@ -33,6 +33,8 @@ import { UsersService } from './services-assignment/services/users.service';
 import { CounterService } from './services-assignment/services/counter.service';
 import { InlineEditComponent } from './inline-edit/inline-edit.component';
 import { PipesAssignmentComponent } from './pipes-assignment/pipes-assignment.component';
+import { ReversePipe } from './pipes-assignment/reverse.pipe';
+import { SortPipe } from './pipes-assignment/sort.pipe';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -60,7 +62,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ActiveUsersComponent,
     InactiveUsersComponent,
     InlineEditComponent,
-    PipesAssignmentComponent
+    PipesAssignmentComponent,
+    ReversePipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,
