@@ -35,6 +35,9 @@ import { InlineEditComponent } from './inline-edit/inline-edit.component';
 import { PipesAssignmentComponent } from './pipes-assignment/pipes-assignment.component';
 import { ReversePipe } from './pipes-assignment/reverse.pipe';
 import { SortPipe } from './pipes-assignment/sort.pipe';
+import { GameControlComponent } from './data-binding-assignment/game-control/game-control.component';
+import { OddComponent } from './data-binding-assignment/odd/odd.component';
+import { EvenComponent } from './data-binding-assignment/even/even.component';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -64,7 +67,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     InlineEditComponent,
     PipesAssignmentComponent,
     ReversePipe,
-    SortPipe
+    SortPipe,
+    GameControlComponent,
+    OddComponent,
+    EvenComponent
   ],
   imports: [
     BrowserModule,
