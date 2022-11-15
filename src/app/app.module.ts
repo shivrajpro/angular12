@@ -38,6 +38,7 @@ import { SortPipe } from './pipes-assignment/sort.pipe';
 import { GameControlComponent } from './data-binding-assignment/game-control/game-control.component';
 import { OddComponent } from './data-binding-assignment/odd/odd.component';
 import { EvenComponent } from './data-binding-assignment/even/even.component';
+import { ReactiveFormsAssignmentComponent } from './reactive-forms-assignment/reactive-forms-assignment.component';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -70,7 +71,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     SortPipe,
     GameControlComponent,
     OddComponent,
-    EvenComponent
+    EvenComponent,
+    ReactiveFormsAssignmentComponent
   ],
   imports: [
     BrowserModule,
