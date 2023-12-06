@@ -38,7 +38,7 @@ describe('MatchersComponent', () => {
     const n = null;
     expect(n).toBeNull();
     expect(n).toBeDefined();
-    expect(n).toBeUndefined();
+    expect(n).not.toBeUndefined();
     expect(n).not.toBeTruthy();
     expect(n).toBeFalsy();
   });
