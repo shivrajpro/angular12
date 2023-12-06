@@ -5,10 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatchersComponent } from './matchers/matchers.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MatchersComponent
   ],
   imports: [
     BrowserModule,
