@@ -1,0 +1,5 @@
+Step 1: uninstall karma
+Step 2: remove test object from angular.json
+Step 3: delete karma.conf and test.ts
+Step 4: npm i jest @types/jest jest-preset-angular
+Step 5: create steup.jest.ts file
